@@ -195,6 +195,82 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "prosaude",
+    group: "work",
+    name: "Pró-Saúde Inspeções",
+    logo: { src: "/media/logos/prosaude.svg", full: true },
+    layout: "wide",
+    role: { pt: "Reescrita e evolução, para a Blabsia", en: "Rewrite and evolution, for Blabsia" },
+    headline: {
+      pt: "Inspeção de segurança do agendamento ao relatório assinado",
+      en: "Safety inspections from scheduling to the signed report",
+    },
+    summary: {
+      pt: "Agenda da equipe, checklist por norma em campo, fotos com GPS, relatório em PDF assinado e plano de ação até a correção. Funciona sem internet no celular e se adapta a qualquer tipo de local e norma.",
+      en: "Team calendar, norm-based checklists in the field, GPS-stamped photos, a signed PDF report and an action plan through to the fix. Works offline on the phone and adapts to any kind of site and standard.",
+    },
+    feats: [
+      {
+        pt: "PWA de campo offline-first: respostas, fotos e assinatura ficam no IndexedDB e sobem por um /sync idempotente quando a rede volta; service worker escrito à mão.",
+        en: "Offline-first field PWA: answers, photos and signature stay in IndexedDB and go up through an idempotent /sync when the network returns; hand-written service worker.",
+      },
+      {
+        pt: "Maquete 3D do local em three.js com as áreas coloridas pelo último resultado; no login, uma varredura acende os pinos por severidade.",
+        en: "A three.js 3D model of the site with areas coloured by the latest result; on login, a scan lights the pins by severity.",
+      },
+      {
+        pt: "Prova de presença por GPS no início e em cada foto, e assinatura desenhada com verificação pública do PDF por SHA-256.",
+        en: "Proof of presence by GPS at start and on every photo, and a drawn signature with public PDF verification by SHA-256.",
+      },
+      {
+        pt: "White label por cliente: vocabulário próprio, cor derivada em oklab, textos de relatório com marcadores e biblioteca de normas que avisa quando uma NR muda.",
+        en: "White label per client: own vocabulary, colour derived in oklab, report texts with placeholders and a norm library that warns when a standard changes.",
+      },
+    ],
+    stack: [
+      "Next.js 16",
+      "React 19",
+      "Tailwind 4",
+      "TanStack Query",
+      "three.js",
+      "d3",
+      "IndexedDB",
+      "Express",
+      "Prisma 7",
+      "PostgreSQL",
+      "S3",
+      "Grafana",
+    ],
+    stats: [
+      { value: "10", label: { pt: "repositórios", en: "repositories" } },
+      { value: "4", label: { pt: "serviços de plataforma", en: "platform services" } },
+      { value: "0.13", label: { pt: "versão desta seção", en: "version shown here" } },
+    ],
+    shots: [
+      shot(
+        "prosaude/maquete.webp",
+        "Ficha de um condomínio com a maquete 3D, áreas marcadas pela cor do pior resultado e os itens não conformes da cobertura. Dados de demonstração.",
+        "Condominium page with its 3D model, areas marked by their worst result and the roof's non-compliant items. Demo data.",
+      ),
+      shot(
+        "prosaude/visao-geral.webp",
+        "Visão geral com indicadores do mês, inspeções por mês e próximas visitas da equipe.",
+        "Overview with monthly KPIs, inspections per month and the team's upcoming visits.",
+      ),
+      shot(
+        "prosaude/plano-kanban.webp",
+        "Relatório de uma inspeção entregue com o plano de ação em quadro Kanban.",
+        "A delivered inspection report with its action plan as a Kanban board.",
+      ),
+    ],
+    phone: shot(
+      "prosaude/campo-celular.webp",
+      "App de campo no celular: inspeção em andamento com progresso, áreas e itens do checklist com norma e resposta.",
+      "Field app on the phone: inspection in progress with progress, areas and checklist items with norm and answer.",
+    ),
+    links: [],
+  },
+  {
     id: "idle",
     group: "games",
     name: "Idle Legends",

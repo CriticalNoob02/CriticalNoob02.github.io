@@ -414,6 +414,7 @@ main > section:not(.project) {
 }
 
 .project {
+  overflow-x: clip;
   background: var(--p-bg);
   color: var(--p-text);
   font-family: var(--p-body);
@@ -695,6 +696,21 @@ button.shot:hover {
   bottom: 0;
 }
 
+/* A phone screenshot sits over the left edge of the main shot */
+.shots.has-phone.shots-n3 .shot-main {
+  margin-left: 12%;
+  width: 62%;
+}
+.shot-phone {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 17%;
+  z-index: 2;
+  border-radius: 22px;
+  border: 6px solid #0b0d12;
+}
+
 /* Wide with three: main on the left, the other two cascade over its right edge */
 .shots-wide.shots-n3 {
   padding-bottom: 6%;
@@ -732,6 +748,21 @@ button.shot:hover {
 }
 
 @media (max-width: 700px) {
+  .shots.has-phone.shots-n3 .shot-main {
+    margin-left: 22%;
+    width: 78%;
+  }
+  .shot-phone {
+    width: 30%;
+    bottom: auto;
+    top: 6%;
+    border-width: 4px;
+    border-radius: 14px;
+  }
+  .shots.has-phone.shots-n3 .shot-side {
+    margin-left: 22%;
+    width: 78%;
+  }
   .shots-wide.shots-n3 .shot-main {
     width: 100%;
   }
@@ -930,6 +961,19 @@ button.shot:hover {
   --p-display-weight: 800;
   --p-body: "Geist Variable", sans-serif;
   --p-headline-tracking: -0.03em;
+}
+
+[data-theme="prosaude"] {
+  --p-bg: #072f57;
+  --p-surface: #0a3a6b;
+  --p-line: #154b82;
+  --p-text: #eef4fb;
+  --p-muted: #b9cbe0;
+  --p-accent: #5fb0ff;
+  --p-accent-ink: #072f57;
+  --p-display: "Instrument Sans Variable", sans-serif;
+  --p-body: "Instrument Sans Variable", sans-serif;
+  --p-headline-tracking: -0.025em;
 }
 
 [data-theme="idle"] {
@@ -1404,7 +1448,21 @@ button.shot:hover {
 }
 
 @media (max-width: 640px) {
+  .nav-inner {
+    gap: 12px;
+  }
+  .nav-name {
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .nav-xp {
+    gap: 6px;
+    white-space: nowrap;
+  }
   .nav-xp-bar {
-    width: 40px;
+    width: 36px;
   }
 }

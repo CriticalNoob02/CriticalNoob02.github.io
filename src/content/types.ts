@@ -10,7 +10,15 @@ export type Stat = { value: string; label: T };
 export type Link = { label: T; href: string };
 
 /** Each project paints its section with its own colours and type (see styles.css). */
-export type ThemeId = "radar" | "brio" | "forja" | "idle" | "arena" | "mesa" | "royale";
+export type ThemeId =
+  | "radar"
+  | "brio"
+  | "forja"
+  | "prosaude"
+  | "idle"
+  | "arena"
+  | "mesa"
+  | "royale";
 
 export type Logo = {
   /** Symbol or full logo image; omitted when the mark is drawn in CSS (Forja). */
@@ -40,6 +48,8 @@ export type Project = {
   stack: string[];
   stats: Stat[];
   shots: Shot[];
+  /** Optional phone screenshot laid over the shots. */
+  phone?: Shot;
   links: Link[];
 };
 

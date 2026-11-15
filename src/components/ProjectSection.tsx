@@ -55,12 +55,17 @@ function Shots({ p }: { p: Project }) {
   const front = (pos: number) => setOrder((o) => [o[pos], ...o.filter((_, i) => i !== pos)]);
   return (
     <motion.div
-      className={`shots shots-${p.layout} shots-n${shots.length}`}
+      className={`shots shots-${p.layout} shots-n${shots.length}${p.phone ? " has-phone" : ""}`}
       initial={reduce ? false : { opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     >
+      {p.phone && (
+        <figure className="shot shot-phone">
+          <img src={p.phone.src} alt={t(p.phone.alt)} loading="lazy" />
+        </figure>
+      )}
       {shots.map((s, i) =>
         i === 0 ? (
           <figure key={s.src} className="shot shot-main">
