@@ -18,7 +18,9 @@ export type ThemeId =
   | "idle"
   | "arena"
   | "mesa"
-  | "royale";
+  | "royale"
+  | "carrossel"
+  | "tutoriais";
 
 export type Logo = {
   /** Symbol or full logo image; omitted when the mark is drawn in CSS (Forja). */
@@ -30,12 +32,14 @@ export type Logo = {
   sub?: string;
 };
 
+export type Group = "work" | "marketing" | "games";
+
 export type Layout = "wide" | "split" | "split-reverse";
 
 /** One project: one full section of the page, in the project's own identity. */
 export type Project = {
   id: ThemeId;
-  group: "work" | "games";
+  group: Group;
   name: string;
   logo: Logo;
   layout: Layout;
@@ -48,6 +52,8 @@ export type Project = {
   stack: string[];
   stats: Stat[];
   shots: Shot[];
+  /** Social-media carousel, swiped sideways in place of the shots. */
+  slides?: Shot[];
   /** Optional phone screenshot laid over the shots. */
   phone?: Shot;
   links: Link[];

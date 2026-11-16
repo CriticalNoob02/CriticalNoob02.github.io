@@ -21,6 +21,9 @@ export function Nav() {
               <a href="#work">{t(ui.navWork)}</a>
             </li>
             <li>
+              <a href="#marketing">{t(ui.navMarketing)}</a>
+            </li>
+            <li>
               <a href="#games">{t(ui.navGames)}</a>
             </li>
             <li>

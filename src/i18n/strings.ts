@@ -3,6 +3,7 @@ import type { T } from "../content/types";
 /** Interface copy. Content copy lives in src/content. */
 export const ui = {
   navWork: { pt: "Projetos", en: "Work" },
+  navMarketing: { pt: "Marketing", en: "Marketing" },
   navGames: { pt: "Jogos", en: "Games" },
   navAbout: { pt: "Sobre", en: "About" },
   langToggle: { pt: "EN", en: "PT" },
@@ -14,6 +15,13 @@ export const ui = {
   navLevel: { pt: "Nv", en: "Lv" },
   sheetGuild: { pt: "Guilda atual", en: "Current guild" },
   workTitle: { pt: "Campanhas principais", en: "Main campaigns" },
+  marketingTitle: { pt: "Marketing com IA", en: "Marketing with AI" },
+  marketingIntro: {
+    pt: "Com o Claude Code eu também faço a divulgação. As peças saem do mesmo código do produto, com regras de texto e dados fictícios.",
+    en: "With Claude Code I also make the promotion. The pieces come from the product's own code, with copy rules and fictional data.",
+  },
+  slidePrev: { pt: "Slide anterior", en: "Previous slide" },
+  slideNext: { pt: "Próximo slide", en: "Next slide" },
   gamesTitle: { pt: "Jogos que fiz", en: "Games I made" },
   gamesIntro: {
     pt: "Onde testo rede, simulação e anti-trapaça sem pedir licença a ninguém.",

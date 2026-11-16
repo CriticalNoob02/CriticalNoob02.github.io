@@ -271,6 +271,147 @@ export const projects: Project[] = [
     links: [],
   },
   {
+    id: "carrossel",
+    name: "Forja Hub",
+    group: "marketing",
+    logo: { sub: "INSTAGRAM" },
+    layout: "wide",
+    role: {
+      pt: "Divulgação feita com Claude Code",
+      en: "Social content made with Claude Code",
+    },
+    headline: {
+      pt: "Um carrossel por módulo, escrito a partir do código",
+      en: "One carousel per module, written from the code",
+    },
+    summary: {
+      pt: "Série de Instagram para agências que montam sistema para pequenos negócios. Recursos, ajustes e perguntas do assistente saem dos manifestos do back-end, então nenhum slide promete o que o produto não faz.",
+      en: "An Instagram series for agencies that build systems for small businesses. Features, settings and assistant questions come from the back-end manifests, so no slide promises what the product does not do.",
+    },
+    feats: [
+      {
+        pt: "Gerador em Node: cada slide é HTML, o Playwright fotografa em 1080×1350 e o título que estoura a largura encolhe sozinho.",
+        en: "Node generator: each slide is HTML, Playwright shoots it at 1080×1350 and a headline that overflows shrinks itself.",
+      },
+      {
+        pt: "Estrutura fixa: gancho, a tela, o que faz, o que o construtor ajusta, perguntas do assistente, integrações e chamada final.",
+        en: "Fixed structure: hook, the screen, what it does, what the builder sets, assistant questions, integrations and a closing call.",
+      },
+      {
+        pt: "Regras de texto escritas junto com o gerador: fala com quem constrói, sem travessão, sem slogan pronto, e cada carrossel sai com legenda e hashtags.",
+        en: "Copy rules written next to the generator: it speaks to the builder, no em dashes, no stock slogans, and every carousel ships with a caption and hashtags.",
+      },
+      {
+        pt: "Reels em 1080×1920 num motor próprio em Three.js: cada reel é um roteiro de poucas linhas e os módulos viram a marca no fim.",
+        en: "Reels at 1080×1920 on a small Three.js engine: each reel is a short script and the modules turn into the logo at the end.",
+      },
+    ],
+    stack: ["Claude Code", "Node", "Playwright", "HTML/CSS", "Three.js"],
+    stats: [
+      { value: "18", label: { pt: "carrosséis", en: "carousels" } },
+      { value: "7", label: { pt: "slides cada", en: "slides each" } },
+    ],
+    shots: [],
+    slides: [
+      shot(
+        "marketing/carrossel/01.webp",
+        "Capa do carrossel do módulo Fidelidade: o cliente do seu cliente compra e volta para gastar o crédito.",
+        "Cover of the Loyalty module carousel: your client's customer buys and comes back to spend the credit.",
+      ),
+      shot(
+        "marketing/carrossel/02.webp",
+        "Slide 2: parte da compra volta como crédito, com a tela de configuração do cashback.",
+        "Slide 2: part of the purchase comes back as credit, with the cashback settings screen.",
+      ),
+      shot(
+        "marketing/carrossel/03.webp",
+        "Slide 3: o que o módulo faz, em quatro cartões: cashback, cupons, página de adesão, pontos e selos.",
+        "Slide 3: what the module does, in four cards: cashback, coupons, sign-up page, points and stamps.",
+      ),
+      shot(
+        "marketing/carrossel/04.webp",
+        "Slide 4: o saldo aparece na ficha da cliente antes de fechar a venda. Dados fictícios.",
+        "Slide 4: the balance shows on the customer's record before the sale closes. Fictional data.",
+      ),
+      shot(
+        "marketing/carrossel/05.webp",
+        "Slide 5: o assistente de IA responde como está a fidelidade do mês. Dados fictícios.",
+        "Slide 5: the AI assistant answers how loyalty is doing this month. Fictional data.",
+      ),
+      shot(
+        "marketing/carrossel/06.webp",
+        "Slide 6: como a Fidelidade conversa com Pessoas, Vendas e Chatbot.",
+        "Slide 6: how Loyalty works with People, Sales and Chatbot.",
+      ),
+      shot(
+        "marketing/carrossel/07.webp",
+        "Slide 7, chamada final em fundo escuro: ligue a Fidelidade, com o perfil do Instagram e os módulos do hub.",
+        "Slide 7, closing call on a dark background: turn on Loyalty, with the Instagram handle and the hub's modules.",
+      ),
+    ],
+    links: [],
+  },
+  {
+    id: "tutoriais",
+    name: "Tutoriais em vídeo",
+    group: "marketing",
+    logo: {},
+    layout: "split",
+    role: {
+      pt: "Vídeos feitos com Claude Code",
+      en: "Videos made with Claude Code",
+    },
+    headline: {
+      pt: "Tutoriais gravados, narrados e editados por script",
+      en: "Tutorials recorded, narrated and edited by script",
+    },
+    summary: {
+      pt: "Um vídeo por módulo do Forja Hub, numa marca fictícia (Studio Lumi) para servir a qualquer cliente. O roteiro é código: muda a fala, roda de novo e sai o vídeo novo.",
+      en: "One video per Forja Hub module, under a fictional brand (Studio Lumi) so it fits any client. The script is code: change a line, run it again and a new video comes out.",
+    },
+    feats: [
+      {
+        pt: "Playwright usa o app de verdade seguindo o roteiro, com cursor desenhado, relógio congelado e dados novos semeados a cada rodada.",
+        en: "Playwright drives the real app from the script, with a drawn cursor, a frozen clock and fresh seed data on every run.",
+      },
+      {
+        pt: "Narração em português com edge-tts, em cache pela fala; a legenda é o próprio roteiro.",
+        en: "Portuguese narration with edge-tts, cached per line; the subtitles are the script itself.",
+      },
+      {
+        pt: "Remotion monta zoom, destaque e legenda, e acelera a ação que dura mais que a fala.",
+        en: "Remotion adds zoom, highlights and subtitles, and speeds up any action that runs longer than its line.",
+      },
+      {
+        pt: "Capítulos e descrição do YouTube saem do mesmo roteiro. O mesmo pipeline gravou 7 tutoriais do Radar Hospital com os dados mascarados.",
+        en: "YouTube chapters and descriptions come from the same script. The same pipeline recorded 7 Radar Hospital tutorials with masked data.",
+      },
+    ],
+    stack: ["Claude Code", "Playwright", "Remotion", "edge-tts", "React", "YouTube"],
+    stats: [
+      { value: "23", label: { pt: "vídeos do Forja Hub", en: "Forja Hub videos" } },
+      { value: "~2 min", label: { pt: "cada", en: "each" } },
+    ],
+    shots: [
+      shot(
+        "marketing/tutoriais/assistente.webp",
+        "Quadro do tutorial do assistente: a câmera aproxima o menu de perguntas e a legenda narra o passo. Studio Lumi é fictício.",
+        "Frame from the assistant tutorial: the camera zooms on the question menu and the subtitle narrates the step. Studio Lumi is fictional.",
+      ),
+      shot(
+        "marketing/tutoriais/relatorios.webp",
+        "Quadro do tutorial de relatórios: um destaque azul marca o bloco que acabou de subir no modelo.",
+        "Frame from the reports tutorial: a blue highlight marks the block that just moved up in the template.",
+      ),
+      shot(
+        "marketing/tutoriais/paineis.webp",
+        "Quadro do tutorial de painéis: atendimentos por profissional, com a legenda da narração.",
+        "Frame from the dashboards tutorial: appointments by professional, with the narration subtitle.",
+      ),
+    ],
+    links: [],
+  },
+  {
     id: "idle",
     group: "games",
     name: "Idle Legends",

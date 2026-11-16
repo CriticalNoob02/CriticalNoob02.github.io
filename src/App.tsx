@@ -7,10 +7,11 @@ import { ProjectSection } from "./components/ProjectSection";
 import { Quests } from "./components/Quests";
 import { XpToast } from "./components/XpToast";
 import { projects } from "./content/projects";
+import type { Group as GroupId } from "./content/types";
 import { ui } from "./i18n/strings";
 import { useStore, useT } from "./store";
 
-function Group({ id, title, intro }: { id: "work" | "games"; title: string; intro?: string }) {
+function Group({ id, title, intro }: { id: GroupId; title: string; intro?: string }) {
   return (
     <>
       <header className="group-head" id={id}>
@@ -41,6 +42,7 @@ export function App() {
       <main>
         <Hero />
         <Group id="work" title={t(ui.workTitle)} />
+        <Group id="marketing" title={t(ui.marketingTitle)} intro={t(ui.marketingIntro)} />
         <Group id="games" title={t(ui.gamesTitle)} intro={t(ui.gamesIntro)} />
         <Quests />
         <About />

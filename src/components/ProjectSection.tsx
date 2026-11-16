@@ -6,6 +6,7 @@ import { useStore, useT } from "../store";
 import { ForjaTheming } from "./extras/ForjaTheming";
 import { MesaD20 } from "./extras/MesaD20";
 import { RadarBody } from "./extras/RadarBody";
+import { Slides } from "./Slides";
 
 /** Live pieces that show what a project does, rendered under its section. */
 const EXTRAS: Partial<Record<Project["id"], () => React.JSX.Element>> = {
@@ -19,7 +20,7 @@ function Brand({ p }: { p: Project }) {
   const { logo } = p;
   return (
     <div className="brand">
-      {p.id === "forja" && (
+      {(p.id === "forja" || p.id === "carrossel") && (
         <span className="brand-forja-mark" aria-hidden="true">
           <i />
           <i />
@@ -137,6 +138,7 @@ export function ProjectSection({ p }: { p: Project }) {
             </dl>
           )}
         </div>
+        {p.slides && <Slides slides={p.slides} label={t(p.headline)} />}
         <Shots p={p} />
         <div className="project-detail">
           <ul className="feats">

@@ -40,6 +40,7 @@ describe("content", () => {
       character.portrait,
       ...projects.flatMap((p) => [
         ...p.shots.map((s) => s.src),
+        ...(p.slides ?? []).map((s) => s.src),
         ...(p.logo.src ? [p.logo.src] : []),
       ]),
       ...quests.flatMap((q) => (q.shot ? [q.shot.src] : [])),
