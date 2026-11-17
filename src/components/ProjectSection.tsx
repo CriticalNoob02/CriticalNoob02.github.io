@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import type { Project, Shot } from "../content/types";
 import { useStore, useT } from "../store";
+import { ArchMap } from "./ArchMap";
 import { ForjaTheming } from "./extras/ForjaTheming";
 import { MesaD20 } from "./extras/MesaD20";
 import { RadarBody } from "./extras/RadarBody";
@@ -158,6 +159,7 @@ export function ProjectSection({ p }: { p: Project }) {
             </a>
           ))}
         </div>
+        {p.arch && <ArchMap arch={p.arch} projectId={p.id} />}
         {Extra && <Extra />}
       </div>
     </section>

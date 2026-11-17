@@ -57,6 +57,32 @@ export type Project = {
   /** Optional phone screenshot laid over the shots. */
   phone?: Shot;
   links: Link[];
+  /** How the project is built, shown as a layered map under the section. */
+  arch?: Architecture;
+};
+
+/** One box of the architecture map. */
+export type ArchNode = {
+  /** Unique inside the map; used by `to`. */
+  id: string;
+  name: string;
+  /** Framework or tool, short. */
+  tech: string;
+  /** What it does, one sentence. */
+  note: T;
+  /** Ids of the nodes it calls, writes to or feeds. Drawn when the node is active. */
+  to?: string[];
+};
+
+export type ArchLayer = { label: T; nodes: ArchNode[] };
+
+export type Architecture = {
+  /** One or two sentences on the overall shape. */
+  summary: T;
+  layers: ArchLayer[];
+  /** Node shown active when the map opens. */
+  start: string;
+  facts: Stat[];
 };
 
 /** A small tool or side project. */

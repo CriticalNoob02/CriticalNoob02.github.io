@@ -20,6 +20,13 @@ export const ui = {
     pt: "Com o Claude Code eu também faço a divulgação. As peças saem do mesmo código do produto, com regras de texto e dados fictícios.",
     en: "With Claude Code I also make the promotion. The pieces come from the product's own code, with copy rules and fictional data.",
   },
+  archOpen: { pt: "Ver a arquitetura", en: "See the architecture" },
+  archClose: { pt: "Fechar a arquitetura", en: "Close the architecture" },
+  archHint: {
+    pt: "Passe o mouse ou toque num bloco para ver com quem ele conversa.",
+    en: "Hover or tap a box to see what it talks to.",
+  },
+  archTalks: { pt: "Conversa com", en: "Talks to" },
   slidePrev: { pt: "Slide anterior", en: "Previous slide" },
   slideNext: { pt: "Próximo slide", en: "Next slide" },
   gamesTitle: { pt: "Jogos que fiz", en: "Games I made" },

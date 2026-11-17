@@ -1,3 +1,4 @@
+import { architectures } from "./architecture";
 import type { Project, Quest, Shot } from "./types";
 
 const shot = (src: string, pt: string, en: string, pixel = false): Shot => ({
@@ -9,6 +10,7 @@ const shot = (src: string, pt: string, en: string, pixel = false): Shot => ({
 export const projects: Project[] = [
   {
     id: "radar",
+    arch: architectures.radar,
     name: "Radar Saúde",
     group: "work",
     logo: { src: "/media/logos/radar.svg", full: true },
@@ -78,6 +80,7 @@ export const projects: Project[] = [
   },
   {
     id: "brio",
+    arch: architectures.brio,
     name: "Brio",
     group: "work",
     logo: { src: "/media/logos/brio.svg", sub: "GESTÃO E SAÚDE" },
@@ -141,6 +144,7 @@ export const projects: Project[] = [
   },
   {
     id: "forja",
+    arch: architectures.forja,
     name: "Forja Hub",
     group: "work",
     logo: {},
@@ -196,6 +200,7 @@ export const projects: Project[] = [
   },
   {
     id: "prosaude",
+    arch: architectures.prosaude,
     group: "work",
     name: "Pró-Saúde Inspeções",
     logo: { src: "/media/logos/prosaude.svg", full: true },
@@ -413,6 +418,7 @@ export const projects: Project[] = [
   },
   {
     id: "idle",
+    arch: architectures.idle,
     group: "games",
     name: "Idle Legends",
     logo: { src: "/media/logos/idle.png" },
@@ -482,6 +488,7 @@ export const projects: Project[] = [
   },
   {
     id: "arena",
+    arch: architectures.arena,
     group: "games",
     name: "Arena 4v4",
     logo: { src: "/media/logos/arena.png", pixel: true },

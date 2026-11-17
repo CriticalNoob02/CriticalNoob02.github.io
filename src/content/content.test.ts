@@ -56,6 +56,18 @@ describe("content", () => {
     for (const h of hrefs) expect(h).toMatch(/^https:\/\//);
   });
 
+  it("draws architecture maps whose links point at real boxes", () => {
+    for (const p of projects) {
+      if (!p.arch) continue;
+      const ids = p.arch.layers.flatMap((l) => l.nodes.map((n) => n.id));
+      expect(new Set(ids).size, `${p.id}: duplicate ids`).toBe(ids.length);
+      expect(ids, `${p.id}: start`).toContain(p.arch.start);
+      for (const l of p.arch.layers)
+        for (const n of l.nodes)
+          for (const to of n.to ?? []) expect(ids, `${p.id}: ${n.id} -> ${to}`).toContain(to);
+    }
+  });
+
   it("uses no long dashes in visible copy", () => {
     const bad = allStrings(content).filter((s) => /[–—]/.test(s));
     expect(bad).toEqual([]);

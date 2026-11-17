@@ -779,6 +779,235 @@ button.shot:hover {
   }
 }
 
+/* Architecture map: layers of boxes; only the active box's links are drawn */
+.arch {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.arch-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid var(--p-line);
+  background: var(--p-surface);
+  color: var(--p-text);
+  font: 600 0.95rem var(--p-body);
+  cursor: pointer;
+  transition: transform 0.2s var(--ease);
+}
+
+.arch-toggle:hover {
+  border-color: var(--p-accent);
+}
+
+.arch-toggle:active {
+  transform: scale(0.98);
+}
+
+.arch-toggle svg:first-child {
+  color: var(--p-accent);
+}
+
+.arch-caret {
+  transition: transform 0.3s var(--ease);
+}
+
+.arch-toggle[aria-expanded="true"] .arch-caret {
+  transform: rotate(180deg);
+}
+
+.arch-panel {
+  margin-top: 20px;
+  padding: clamp(20px, 3.4vw, 40px);
+  border-radius: calc(var(--radius) + 8px);
+  border: 1px solid var(--p-line);
+  background-color: var(--p-surface);
+  background-image: radial-gradient(
+    color-mix(in oklab, var(--p-text) 10%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 20px 20px;
+}
+
+.arch-summary {
+  margin: 0;
+  max-width: 72ch;
+  font-size: 1.05rem;
+}
+
+.arch-hint {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--p-muted);
+}
+
+.arch-board {
+  position: relative;
+  display: grid;
+  gap: 30px;
+  margin-top: 28px;
+}
+
+.arch-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.arch-line {
+  fill: none;
+  stroke: var(--p-accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.arch-line-in {
+  opacity: 0.55;
+}
+
+.arch-lines marker path {
+  fill: var(--p-accent);
+}
+
+.arch-layer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  align-items: center;
+}
+
+.arch-layer-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p-muted);
+}
+
+.arch-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.arch-node {
+  display: grid;
+  gap: 2px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--p-line);
+  background: var(--p-bg);
+  color: var(--p-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.25s var(--ease),
+    box-shadow 0.25s var(--ease);
+}
+
+/* Dimmed boxes stay opaque so the lines behind them never show through the text */
+.arch-node[data-state="idle"] {
+  color: var(--p-muted);
+  border-color: color-mix(in oklab, var(--p-line) 60%, transparent);
+}
+
+.arch-node[data-state="linked"] {
+  border-color: color-mix(in oklab, var(--p-accent) 55%, var(--p-line));
+}
+
+.arch-node[data-state="active"] {
+  border-color: var(--p-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--p-accent) 28%, transparent);
+  transform: translateY(-2px);
+}
+
+.arch-node-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+
+.arch-node-tech {
+  font-size: 0.74rem;
+  color: var(--p-muted);
+}
+
+.arch-detail {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--p-line);
+  min-height: 7.5em;
+}
+
+.arch-detail p {
+  margin: 0 0 6px;
+  max-width: 72ch;
+}
+
+.arch-detail-name {
+  font-family: var(--p-display);
+  font-weight: var(--p-display-weight, 700);
+  font-size: 1.2rem;
+}
+
+.arch-detail-name span {
+  margin-left: 8px;
+  font-family: var(--p-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--p-muted);
+}
+
+.arch-detail-talks {
+  font-size: 0.88rem;
+  color: var(--p-muted);
+}
+
+.arch-facts {
+  margin-top: 20px;
+}
+
+@media (max-width: 700px) {
+  .arch-layer {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .arch-board {
+    gap: 26px;
+  }
+  .arch-node {
+    padding: 8px 11px;
+  }
+  /* Stacked layers make long lines cross everything; the highlight and the detail carry the links */
+  .arch-lines {
+    display: none;
+  }
+  /* The detail follows the reader while the map is on screen */
+  .arch-detail {
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    margin: 20px calc(-1 * clamp(20px, 3.4vw, 40px)) 0;
+    padding: 14px clamp(20px, 3.4vw, 40px) 16px;
+    min-height: 0;
+    background: var(--p-surface);
+    box-shadow: 0 -12px 24px -16px rgb(0 0 0 / 0.35);
+  }
+}
+
 /* Social carousel: slides side by side, swiped like the feed */
 .slides {
   grid-column: 1 / -1;
