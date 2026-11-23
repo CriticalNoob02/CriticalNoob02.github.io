@@ -15,6 +15,7 @@ export type ThemeId =
   | "brio"
   | "forja"
   | "prosaude"
+  | "basal"
   | "idle"
   | "gg77"
   | "tribos"

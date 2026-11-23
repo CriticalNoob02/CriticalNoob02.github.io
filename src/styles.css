@@ -1290,6 +1290,23 @@ button.shot:hover {
   background-image: radial-gradient(ellipse at 50% -10%, rgb(227 167 60 / 0.1), transparent 55%);
 }
 
+/* Basal's "Jardim" palette: sage paper, deep green, the app's own type */
+[data-theme="basal"] {
+  --p-bg: #eef2ea;
+  --p-surface: #f7f9f4;
+  --p-line: #d5ddd0;
+  --p-text: #17251d;
+  --p-muted: #56665c;
+  --p-accent: #2e5e46;
+  --p-accent-ink: #ffffff;
+  --p-display: "Bricolage Grotesque Variable", sans-serif;
+  --p-display-weight: 700;
+  --p-body: "Figtree Variable", sans-serif;
+  --p-headline-tracking: -0.025em;
+  --p-shadow: 0.16;
+  background-image: radial-gradient(ellipse at 85% 0%, rgb(46 94 70 / 0.08), transparent 55%);
+}
+
 /* The launcher's graphite glass and neon accent */
 [data-theme="gg77"] {
   --p-bg: #0f1116;

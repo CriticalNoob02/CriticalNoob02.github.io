@@ -276,6 +276,84 @@ export const projects: Project[] = [
     links: [],
   },
   {
+    id: "basal",
+    group: "work",
+    name: "Basal",
+    logo: { src: "/media/logos/basal.svg" },
+    layout: "split",
+    role: { pt: "Produto próprio, no ar", en: "My own product, live" },
+    headline: {
+      pt: "Um app de saúde e o painel de quem acompanha",
+      en: "A health app and the panel of who follows it",
+    },
+    summary: {
+      pt: "O cliente usa o app de graça: peso, medidas, água, passos, sono e o cardápio do dia, com um corpo 3D que muda junto com as medidas. Nutricionistas e personal trainers usam um painel web para montar cardápio e treino, avaliar e acompanhar a adesão, e são encontrados no app por um radar de profissionais próximos.",
+      en: "Clients use the app for free: weight, measurements, water, steps, sleep and the day's meal plan, with a 3D body that changes along with the measurements. Nutritionists and personal trainers use a web panel to build meal plans and workouts, run assessments and follow adherence, and clients find them in the app through a radar of nearby professionals.",
+    },
+    feats: [
+      {
+        pt: "Corpo 3D a partir de uma malha de licença aberta, com gordura e músculo pintados por região e estimativa de gordura pelas medidas.",
+        en: "A 3D body built from an openly licensed mesh, with fat and muscle painted by region and a body-fat estimate from the measurements.",
+      },
+      {
+        pt: "Cardápio com a tabela TACO: macros na hora, troca por alimento equivalente, ajuste de porções para uma meta de calorias, modelos e lista de compras.",
+        en: "Meal plans on the TACO food table: macros on the fly, swaps for equivalent foods, portions scaled to a calorie target, templates and a shopping list.",
+      },
+      {
+        pt: "Refeição confirmada com foto do prato, conferida pela nutricionista, e treino registrado série a série com progressão de carga.",
+        en: "Meals confirmed with a photo of the plate, reviewed by the nutritionist, and workouts logged set by set with load progression.",
+      },
+      {
+        pt: "Avaliação física por protocolo de dobras, passos e sono pelo Health Connect, e cada cliente decide o que cada profissional pode ver.",
+        en: "Skinfold-protocol assessments, steps and sleep from Health Connect, and each client decides what each professional can see.",
+      },
+    ],
+    stack: [
+      "Expo",
+      "React Native",
+      "three.js",
+      "React 19",
+      "Vite",
+      "Tailwind 4",
+      "Express 5",
+      "Prisma",
+      "PostgreSQL",
+    ],
+    stats: [
+      { value: "2", label: { pt: "profissões no painel", en: "professions in the panel" } },
+      { value: "597", label: { pt: "alimentos da TACO", en: "TACO foods" } },
+      { value: "160", label: { pt: "exercícios na biblioteca", en: "exercises in the library" } },
+    ],
+    shots: [
+      shot(
+        "basal/painel-inicio.webp",
+        "Início do painel da nutricionista: adesão da semana, check-ins por dia, clientes ativos e tempo poupado. Dados fictícios.",
+        "The nutritionist's panel home: weekly adherence, check-ins per day, active clients and time saved. Fictional data.",
+      ),
+      shot(
+        "basal/ficha-cliente.webp",
+        "Ficha da cliente com o corpo 3D e a gordura em amarelo, peso no tempo, passos, sono e água. Cliente fictícia.",
+        "Client record with the 3D body and fat in yellow, weight over time, steps, sleep and water. Fictional client.",
+      ),
+      shot(
+        "basal/cardapio.webp",
+        "Editor de cardápio com alimentos da TACO, porções, troca equivalente e o total de macros do dia.",
+        "Meal plan editor with TACO foods, portions, equivalent swaps and the day's macro totals.",
+      ),
+    ],
+    phone: shot(
+      "basal/app-hoje.webp",
+      "App do cliente, tela Hoje: progresso do dia, corpo 3D, passos, sono, água, refeições e o próximo item do cardápio.",
+      "Client app, Today screen: the day's progress, 3D body, steps, sleep, water, meals and the next item on the meal plan.",
+    ),
+    links: [
+      {
+        label: { pt: "basal.forjahub.online", en: "basal.forjahub.online" },
+        href: "https://basal.forjahub.online",
+      },
+    ],
+  },
+  {
     id: "carrossel",
     name: "Forja Hub",
     group: "marketing",
