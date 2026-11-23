@@ -461,7 +461,7 @@ export const projects: Project[] = [
       "GitHub Actions",
     ],
     stats: [
-      { value: "1.45", label: { pt: "versão no ar", en: "live version" } },
+      { value: "1.54", label: { pt: "versão no ar", en: "live version" } },
       { value: "3", label: { pt: "classes jogáveis", en: "playable classes" } },
       { value: "33", label: { pt: "inimigos ilustrados", en: "illustrated enemies" } },
     ],
@@ -483,7 +483,145 @@ export const projects: Project[] = [
       ),
     ],
     links: [
-      { label: { pt: "Jogar agora", en: "Play now" }, href: "https://arena.forjahub.online" },
+      {
+        label: { pt: "Jogar pelo GG77 Launcher", en: "Play through the GG77 Launcher" },
+        href: "https://arena.forjahub.online",
+      },
+    ],
+  },
+  {
+    id: "gg77",
+    group: "games",
+    name: "GG77 Launcher",
+    logo: { src: "/media/logos/gg77.png" },
+    layout: "split",
+    role: { pt: "Produto próprio, no ar", en: "My own product, live" },
+    headline: {
+      pt: "Uma Steam pequena para os jogos da turma",
+      en: "A small Steam for the group's games",
+    },
+    summary: {
+      pt: "Aplicativo de desktop que instala, atualiza e abre os meus jogos fora do navegador. Cada jogador tem biblioteca, tempo de jogo, conquistas de todos os jogos num lugar só, perfil com moldura, banner e título, e uma conta GG77 para ver os amigos.",
+      en: "A desktop app that installs, updates and opens my games outside the browser. Every player gets a library, play time, achievements from every game in one place, a profile with frame, banner and title, and a GG77 account to see their friends.",
+    },
+    feats: [
+      {
+        pt: "Atualização que baixa só os arquivos que mudaram, retoma download interrompido e confere cada arquivo pelo manifesto assinado.",
+        en: "Updates download only the files that changed, resume interrupted downloads and check every file against a signed manifest.",
+      },
+      {
+        pt: "Os jogos liberam conquistas e pegam a sessão da conta por um SDK injetado na janela do jogo, com permissão só para isso.",
+        en: "Games unlock achievements and get the account session through an SDK injected into the game window, allowed to do nothing else.",
+      },
+      {
+        pt: "Catálogo remoto e instaladores para Windows e Linux publicados pelo GitHub Actions a cada tag.",
+        en: "Remote catalogue, plus Windows and Linux installers published by GitHub Actions on every tag.",
+      },
+      {
+        pt: "Conta GG77 própria, com amigos, presença e login único nos jogos.",
+        en: "Its own GG77 account, with friends, presence and single sign-on into the games.",
+      },
+    ],
+    stack: [
+      "Tauri 2",
+      "Rust",
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Express 5",
+      "Prisma",
+      "GitHub Actions",
+    ],
+    stats: [
+      { value: "2", label: { pt: "jogos no catálogo", en: "games in the catalogue" } },
+      { value: "40", label: { pt: "conquistas", en: "achievements" } },
+      { value: "0.5", label: { pt: "versão no ar", en: "live version" } },
+    ],
+    shots: [
+      shot(
+        "gg77/biblioteca.webp",
+        "Biblioteca do launcher com o Tribos em destaque: tempo de jogo, sessões, conquistas e os jogos instalados. Perfil fictício.",
+        "The launcher library with Tribos featured: play time, sessions, achievements and the installed games. Fictional profile.",
+      ),
+      shot(
+        "gg77/conquistas.webp",
+        "Conquistas do launcher, do Idle Legends e do Tribos numa lista só, com raridade e data.",
+        "Achievements from the launcher, Idle Legends and Tribos in one list, with rarity and date.",
+      ),
+      shot(
+        "gg77/perfil.webp",
+        "Perfil do jogador com título, nível, vitrine de conquistas e banner liberado em jogo.",
+        "Player profile with title, level, an achievement showcase and a banner unlocked in game.",
+      ),
+    ],
+    links: [
+      {
+        label: { pt: "Baixar o launcher", en: "Download the launcher" },
+        href: "https://arena.forjahub.online",
+      },
+    ],
+  },
+  {
+    id: "tribos",
+    group: "games",
+    name: "Tribos",
+    logo: { src: "/media/logos/tribos.png" },
+    layout: "wide",
+    role: { pt: "Jogo próprio, no launcher", en: "My own game, in the launcher" },
+    headline: {
+      pt: "Cinco clãs, um vale e nenhum turno",
+      en: "Five clans, one valley and no turns",
+    },
+    summary: {
+      pt: "Estratégia em mapa hexagonal para até 5 jogadores, entre amigos e bots. Ninguém espera a vez: uma barra de energia enche sozinha e paga tropas e construções, e cada tropa tem seu próprio tempo para andar e atacar. Névoa de guerra, ruínas, acampamentos de saqueadores e tréguas entre clãs.",
+      en: "Hex strategy for up to 5 players, friends and bots. Nobody waits for a turn: an energy bar fills by itself and pays for troops and buildings, and each troop has its own cooldown to move and attack. Fog of war, ruins, raider camps and truces between clans.",
+    },
+    feats: [
+      {
+        pt: "Regras puras num pacote compartilhado: o servidor decide tudo e cada jogador recebe só o que enxerga através da névoa.",
+        en: "Pure rules in a shared package: the server decides everything and each player only receives what they can see through the fog.",
+      },
+      {
+        pt: "Bots em três dificuldades e um simulador que joga dezenas de partidas sem servidor para medir equilíbrio e duração.",
+        en: "Bots at three difficulty levels and a simulator that plays dozens of matches without a server to measure balance and length.",
+      },
+      {
+        pt: "8 clãs com habilidade própria, 3 tipos de mapa, 3 ritmos e um treino guiado de 10 passos.",
+        en: "8 clans with their own ability, 3 map types, 3 paces and a 10-step guided tutorial.",
+      },
+      {
+        pt: "Fim de partida com gráfico de pontos, momentos decisivos, histórico, placar e conquistas que chegam ao launcher.",
+        en: "End of match with a score chart, turning points, history, a leaderboard and achievements sent to the launcher.",
+      },
+    ],
+    stack: ["TypeScript", "React", "Phaser 3", "Vite", "Express", "WebSocket", "Vitest"],
+    stats: [
+      { value: "5", label: { pt: "clãs por partida", en: "clans per match" } },
+      { value: "8", label: { pt: "clãs para escolher", en: "clans to choose from" } },
+      { value: "16", label: { pt: "conquistas", en: "achievements" } },
+    ],
+    shots: [
+      shot(
+        "tribos/partida.webp",
+        "Partida em andamento com cinco clãs no mapa de hexágonos, alertas de ataque, placar e minimapa. Bots e jogador fictícios.",
+        "A match in progress with five clans on the hex map, attack alerts, scoreboard and minimap. Bots and a fictional player.",
+      ),
+      shot(
+        "tribos/fim.webp",
+        "Fim de partida: ranking dos clãs com abates e tomadas e o gráfico de pontos ao longo da partida.",
+        "End of match: clan ranking with kills and captures and the score chart across the match.",
+      ),
+      shot(
+        "tribos/sala.webp",
+        "Sala antes da partida: escolha do clã, tamanho e tipo do mapa e ritmo.",
+        "The room before the match: clan choice, map size and type, and pace.",
+      ),
+    ],
+    links: [
+      {
+        label: { pt: "Jogar pelo GG77 Launcher", en: "Play through the GG77 Launcher" },
+        href: "https://arena.forjahub.online",
+      },
     ],
   },
   {

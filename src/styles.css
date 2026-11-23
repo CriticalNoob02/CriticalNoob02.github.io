@@ -1290,6 +1290,38 @@ button.shot:hover {
   background-image: radial-gradient(ellipse at 50% -10%, rgb(227 167 60 / 0.1), transparent 55%);
 }
 
+/* The launcher's graphite glass and neon accent */
+[data-theme="gg77"] {
+  --p-bg: #0f1116;
+  --p-surface: #181b22;
+  --p-line: #2a2e38;
+  --p-text: #f2f4f8;
+  --p-muted: #959dad;
+  --p-accent: #d4ff3f;
+  --p-accent-ink: #12151b;
+  --p-display: "Unbounded Variable", sans-serif;
+  --p-display-weight: 700;
+  --p-body: "Figtree Variable", sans-serif;
+  --p-headline-tracking: -0.02em;
+  background-image: radial-gradient(ellipse at 80% 0%, rgb(212 255 63 / 0.08), transparent 55%);
+}
+
+/* Tribos: iron, bone and brass from the game's own UI */
+[data-theme="tribos"] {
+  --p-bg: #14110e;
+  --p-surface: #221e19;
+  --p-line: #3a332b;
+  --p-text: #e9dfcc;
+  --p-muted: #a39784;
+  --p-accent: #c2a065;
+  --p-accent-ink: #14110e;
+  --p-display: "Cinzel Variable", serif;
+  --p-display-weight: 700;
+  --p-body: "Source Sans 3 Variable", sans-serif;
+  --p-headline-tracking: 0.01em;
+  background-image: radial-gradient(ellipse at 50% -10%, rgb(231 163 58 / 0.08), transparent 55%);
+}
+
 [data-theme="arena"] {
   --p-bg: #0b0c18;
   --p-surface: #151733;

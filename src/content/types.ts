@@ -16,6 +16,8 @@ export type ThemeId =
   | "forja"
   | "prosaude"
   | "idle"
+  | "gg77"
+  | "tribos"
   | "arena"
   | "mesa"
   | "royale"
