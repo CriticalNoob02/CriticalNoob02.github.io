@@ -21,6 +21,7 @@ import "@fontsource-variable/unbounded";
 import "@fontsource-variable/figtree";
 import "@fontsource-variable/cinzel";
 import "@fontsource-variable/source-sans-3";
+import "@fontsource/vt323/400.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";

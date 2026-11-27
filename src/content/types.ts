@@ -19,6 +19,8 @@ export type ThemeId =
   | "idle"
   | "gg77"
   | "tribos"
+  | "dawnkeep"
+  | "corre"
   | "arena"
   | "mesa"
   | "royale"

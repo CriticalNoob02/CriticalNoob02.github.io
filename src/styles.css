@@ -1339,6 +1339,28 @@ button.shot:hover {
   background-image: radial-gradient(ellipse at 50% -10%, rgb(231 163 58 / 0.08), transparent 55%);
 }
 
+/* No Corre: night street, receipt paper and the gold of the shop sign */
+[data-theme="corre"] {
+  --p-bg: #1b1830;
+  --p-surface: #28234a;
+  --p-line: #3a3462;
+  --p-text: #fbf3df;
+  --p-muted: #c9bba0;
+  --p-accent: #ffcc29;
+  --p-accent-ink: #2a1d2e;
+  --p-display: "Press Start 2P", monospace;
+  --p-display-weight: 400;
+  --p-body: "VT323", monospace;
+  --p-brand-size: 1.35rem;
+  --p-headline-size: clamp(1.15rem, 1.9vw, 1.55rem);
+  --p-headline-leading: 1.5;
+  --p-headline-tracking: 0;
+  --p-stat-size: 1.6rem;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  background-image: radial-gradient(ellipse at 15% 0%, rgb(255 204 41 / 0.08), transparent 55%);
+}
+
 [data-theme="arena"] {
   --p-bg: #0b0c18;
   --p-surface: #151733;

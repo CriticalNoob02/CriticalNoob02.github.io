@@ -642,7 +642,7 @@ export const projects: Project[] = [
   {
     id: "tribos",
     group: "games",
-    name: "Tribos",
+    name: "Clanfall",
     logo: { src: "/media/logos/tribos.png" },
     layout: "wide",
     role: { pt: "Jogo próprio, no launcher", en: "My own game, in the launcher" },
@@ -651,48 +651,114 @@ export const projects: Project[] = [
       en: "Five clans, one valley and no turns",
     },
     summary: {
-      pt: "Estratégia em mapa hexagonal para até 5 jogadores, entre amigos e bots. Ninguém espera a vez: uma barra de energia enche sozinha e paga tropas e construções, e cada tropa tem seu próprio tempo para andar e atacar. Névoa de guerra, ruínas, acampamentos de saqueadores e tréguas entre clãs.",
-      en: "Hex strategy for up to 5 players, friends and bots. Nobody waits for a turn: an energy bar fills by itself and pays for troops and buildings, and each troop has its own cooldown to move and attack. Fog of war, ruins, raider camps and truces between clans.",
+      pt: "Estratégia em tempo real num mapa hexagonal para até 5 clãs, entre amigos e bots. Comida, madeira e pedra pagam tropas, muralhas e torres, e vence o último clã de pé. Névoa de guerra, ruínas, acampamentos de saqueadores e tréguas entre clãs.",
+      en: "Real-time strategy on a hex map for up to 5 clans, friends and bots. Food, wood and stone pay for troops, walls and towers, and the last clan standing wins. Fog of war, ruins, raider camps and truces between clans.",
     },
     feats: [
       {
-        pt: "Regras puras num pacote compartilhado: o servidor decide tudo e cada jogador recebe só o que enxerga através da névoa.",
-        en: "Pure rules in a shared package: the server decides everything and each player only receives what they can see through the fog.",
+        pt: "Ponto a ponto: a partida roda no navegador de quem cria a sala e os outros se ligam direto por WebRTC. O servidor só entrega o código da sala, repassa mensagens quando a ligação direta falha e guarda o placar.",
+        en: "Peer to peer: the match runs in the host's browser and the others connect directly over WebRTC. The server only hands out the room code, relays messages when a direct link fails and keeps the leaderboard.",
       },
       {
-        pt: "Bots em três dificuldades e um simulador que joga dezenas de partidas sem servidor para medir equilíbrio e duração.",
-        en: "Bots at three difficulty levels and a simulator that plays dozens of matches without a server to measure balance and length.",
+        pt: "Muralha, portão, torre, armadilha e ponte construídas nos hexágonos, com modo de construção que marca onde cabe, fila de treino por cidade e 9 saberes para pesquisar.",
+        en: "Walls, gates, towers, traps and bridges built on the hexes, with a build mode that marks where they fit, a training queue per city and 9 techs to research.",
       },
       {
-        pt: "8 clãs com habilidade própria, 3 tipos de mapa, 3 ritmos e um treino guiado de 10 passos.",
-        en: "8 clans with their own ability, 3 map types, 3 paces and a 10-step guided tutorial.",
+        pt: "Bots em três dificuldades, que também jogam sob a névoa, e um simulador que joga partidas só de bots para medir equilíbrio. 128 testes nas regras.",
+        en: "Bots at three difficulty levels, which also play under the fog, and a simulator that plays bot-only matches to measure balance. 128 tests on the rules.",
       },
       {
-        pt: "Fim de partida com gráfico de pontos, momentos decisivos, histórico, placar e conquistas que chegam ao launcher.",
-        en: "End of match with a score chart, turning points, history, a leaderboard and achievements sent to the launcher.",
+        pt: "Música, ambiente e efeitos sintetizados no próprio jogo, sem arquivo de áudio, e 16 conquistas que chegam ao launcher.",
+        en: "Music, ambience and sound effects synthesised in the game itself, with no audio files, and 16 achievements sent to the launcher.",
       },
     ],
-    stack: ["TypeScript", "React", "Phaser 3", "Vite", "Express", "WebSocket", "Vitest"],
+    stack: ["TypeScript", "React", "Phaser 3", "Vite", "Express", "WebSocket", "WebRTC", "Vitest"],
     stats: [
       { value: "5", label: { pt: "clãs por partida", en: "clans per match" } },
-      { value: "8", label: { pt: "clãs para escolher", en: "clans to choose from" } },
-      { value: "16", label: { pt: "conquistas", en: "achievements" } },
+      { value: "12", label: { pt: "tipos de tropa", en: "troop types" } },
+      { value: "128", label: { pt: "testes nas regras", en: "tests on the rules" } },
     ],
     shots: [
       shot(
-        "tribos/partida.webp",
-        "Partida em andamento com cinco clãs no mapa de hexágonos, alertas de ataque, placar e minimapa. Bots e jogador fictícios.",
-        "A match in progress with five clans on the hex map, attack alerts, scoreboard and minimap. Bots and a fictional player.",
+        "tribos/partida-rts.webp",
+        "Partida aos 15 minutos com cinco clãs, cidades, fazendas, torres e tropas no mapa de hexágonos, barra de comida, madeira e pedra, registro de eventos e minimapa. Jogadores e bots fictícios.",
+        "A match at minute 15 with five clans, cities, farms, towers and troops on the hex map, the food, wood and stone bar, the event log and the minimap. Fictional players and bots.",
       ),
       shot(
-        "tribos/fim.webp",
-        "Fim de partida: ranking dos clãs com abates e tomadas e o gráfico de pontos ao longo da partida.",
-        "End of match: clan ranking with kills and captures and the score chart across the match.",
+        "tribos/construcao.webp",
+        "Modo de construção de uma torre, com os hexágonos válidos marcados e o painel da obra.",
+        "Build mode for a tower, with the valid hexes marked and the construction panel.",
       ),
       shot(
-        "tribos/sala.webp",
-        "Sala antes da partida: escolha do clã, tamanho e tipo do mapa e ritmo.",
-        "The room before the match: clan choice, map size and type, and pace.",
+        "tribos/sala-p2p.webp",
+        "Sala antes da partida: código da sala, cinco estandartes entre anfitrião, convidado e bots, escolha do clã e ritmo.",
+        "The room before the match: room code, five banners for the host, a guest and bots, clan choice and pace.",
+      ),
+    ],
+    links: [
+      {
+        label: { pt: "Jogar pelo GG77 Launcher", en: "Play through the GG77 Launcher" },
+        href: "https://arena.forjahub.online",
+      },
+    ],
+  },
+  {
+    id: "corre",
+    group: "games",
+    name: "No Corre",
+    logo: { src: "/media/logos/corre.png", pixel: true },
+    layout: "split-reverse",
+    role: { pt: "Jogo próprio, no launcher", en: "My own game, in the launcher" },
+    headline: {
+      pt: "Da garagem à franquia, um lanche de cada vez",
+      en: "From the garage to a franchise, one snack at a time",
+    },
+    summary: {
+      pt: "Lanchonete em pixel art. De dia você atende a fila, de noite cuida do caixa, do estoque e da equipe. Começa numa garagem e, se as contas fecharem no verde, chega a uma franquia na avenida.",
+      en: "A pixel-art snack bar. By day you serve the queue, by night you look after the cash, the stock and the staff. It starts in a garage and, if the books close in the black, ends with a franchise on the avenue.",
+    },
+    feats: [
+      {
+        pt: "Regras num pacote puro: fila, bancadas, equipe que decide sozinha, imposto de MEI ou ME, empréstimo, contas do mês e falência depois de 3 meses no vermelho. 40 testes.",
+        en: "Rules in a pure package: queue, stations, staff that decides on its own, small-business taxes, loans, month-end bills and bankruptcy after 3 months in the red. 40 tests.",
+      },
+      {
+        pt: "8 eventos sorteados por dia, fregueses com pressa, que dão gorjeta ou pedem fiado, e clientes fixos que voltam pelo nome pedindo o de sempre.",
+        en: "8 daily random events, customers in a hurry, tippers and ones who buy on credit, and regulars who come back by name for their usual.",
+      },
+      {
+        pt: "Três dificuldades, um dia de treino guiado e um final na franquia que segue como modo sem fim.",
+        en: "Three difficulty levels, a guided training day and an ending at the franchise that carries on as an endless mode.",
+      },
+      {
+        pt: "Som e música sintetizados no jogo, save local com cópia na nuvem pela conta GG77 e conquistas no launcher.",
+        en: "Sound and music synthesised in the game, a local save with a cloud copy through the GG77 account, and achievements in the launcher.",
+      },
+    ],
+    stack: ["TypeScript", "React", "Canvas 2D", "Vite", "WebAudio", "Vitest"],
+    stats: [
+      { value: "9", label: { pt: "itens no cardápio", en: "menu items" } },
+      { value: "4", label: { pt: "pontos, da garagem à avenida", en: "venues, garage to avenue" } },
+      { value: "21", label: { pt: "conquistas", en: "achievements" } },
+    ],
+    shots: [
+      shot(
+        "corre/loja-movimento.webp",
+        "Lanchonete no centro ao meio-dia de um feriado: seis funcionários nas bancadas, fila até a porta, fregueses marcados com pressa e fiado e um pedido do aplicativo de entrega. Loja e pessoas fictícias.",
+        "The downtown shop at noon on a holiday: six staff at the stations, a queue out the door, customers tagged as in a hurry or on credit, and a delivery-app order. Fictional shop and people.",
+        true,
+      ),
+      shot(
+        "corre/mercado.webp",
+        "Aba Mercado: gosto do bairro, tabela da concorrência com a fatia de cada um e o jornal do bairro.",
+        "The Market tab: what the neighbourhood likes, the competitor table with each share, and the local paper.",
+        true,
+      ),
+      shot(
+        "corre/titulo.webp",
+        "Tela de título com o logo NO CORRE.",
+        "Title screen with the NO CORRE logo.",
+        true,
       ),
     ],
     links: [
