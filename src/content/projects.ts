@@ -703,6 +703,72 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "dawnkeep",
+    group: "games",
+    name: "Dawnkeep",
+    logo: { src: "/media/logos/dawnkeep.png", pixel: true },
+    layout: "split",
+    role: { pt: "Jogo próprio, no launcher", en: "My own game, in the launcher" },
+    headline: {
+      pt: "Segure a noite. Reconstrua de dia.",
+      en: "Hold the night. Rebuild by day.",
+    },
+    summary: {
+      pt: "Defesa de torres cooperativa num mundo de zumbis, para 1 a 4 jogadores. À noite a horda cerca o refúgio e os heróis atiram junto com as torres. De dia a sucata vira barricada, torre, morteiro e prédio da vila.",
+      en: "Co-op tower defence in a zombie world for 1 to 4 players. At night the horde surrounds the refuge and the heroes shoot alongside the towers. By day the scrap turns into barricades, towers, mortars and village buildings.",
+    },
+    feats: [
+      {
+        pt: "A partida roda no navegador de quem cria a sala e os outros se ligam direto por WebRTC. O anfitrião manda 20 atualizações por segundo só com o que mudou, e cada jogador vê o próprio movimento e tiro na hora, corrigido quando a atualização chega.",
+        en: "The match runs in the host's browser and the others connect directly over WebRTC. The host sends 20 updates a second with only what changed, and each player sees their own movement and shots at once, corrected when the update arrives.",
+      },
+      {
+        pt: "Zumbis andam por campos de fluxo calculados a partir do núcleo. Construções são passáveis com custo, então caminho fechado vira barricada derrubada; rastejadores têm campo próprio e passam por baixo.",
+        en: "Zombies follow flow fields computed outward from the core. Buildings can be crossed at a cost, so a closed path means a broken barricade; crawlers have their own field and slip underneath.",
+      },
+      {
+        pt: "Arte toda feita no PixelLab, com árvores e mato animados quadro a quadro ao vento, luz e sombra que seguem a hora do dia e um ajuste de efeitos que cai para o modo leve sozinho quando o quadro passa de 24 ms.",
+        en: "All art made in PixelLab, with trees and grass animated frame by frame in the wind, light and shadows that follow the time of day, and an effects setting that drops to lite mode on its own when frames go over 24 ms.",
+      },
+      {
+        pt: "Som sintetizado no jogo, sem arquivo de áudio, e bots que jogam partidas inteiras sem tela para acertar os números do equilíbrio.",
+        en: "Sound synthesised in the game, with no audio files, and bots that play whole matches with no screen to tune the balance numbers.",
+      },
+    ],
+    stack: ["TypeScript", "Canvas 2D", "Vite", "Node", "WebSocket", "WebRTC", "Vitest", "PixelLab"],
+    stats: [
+      { value: "4", label: { pt: "jogadores por sala", en: "players per room" } },
+      { value: "7", label: { pt: "tipos de zumbi", en: "zombie types" } },
+      { value: "12", label: { pt: "defesas e prédios", en: "defences and buildings" } },
+    ],
+    shots: [
+      shot(
+        "dawnkeep/noite.webp",
+        "Noite 10: a horda chega por três lados, quatro heróis atiram em volta do refúgio iluminado por tochas e as torres seguram as bordas. Jogadores fictícios.",
+        "Night 10: the horde comes from three sides, four heroes shoot around the torch-lit refuge and the towers hold the edges. Fictional players.",
+        true,
+      ),
+      shot(
+        "dawnkeep/dia.webp",
+        "Dia 6 na floresta: a base de dia com torres, morteiros, barricadas, poços de lama e a vila, entre árvores e mato animados.",
+        "Day 6 in the forest: the base by day with towers, mortars, barricades, mud pits and the village, among animated trees and grass.",
+        true,
+      ),
+      shot(
+        "dawnkeep/anoitecer.webp",
+        "Anoitecer: o aviso de que a horda está vindo sobre o refúgio aceso.",
+        "Nightfall: the warning that the horde is coming, over the lit refuge.",
+        true,
+      ),
+    ],
+    links: [
+      {
+        label: { pt: "Jogar pelo GG77 Launcher", en: "Play through the GG77 Launcher" },
+        href: "https://arena.forjahub.online",
+      },
+    ],
+  },
+  {
     id: "corre",
     group: "games",
     name: "No Corre",

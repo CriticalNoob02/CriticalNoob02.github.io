@@ -1339,6 +1339,25 @@ button.shot:hover {
   background-image: radial-gradient(ellipse at 50% -10%, rgb(231 163 58 / 0.08), transparent 55%);
 }
 
+/* Dawnkeep: forest at night, torchlight rust and the HUD's cream */
+[data-theme="dawnkeep"] {
+  --p-bg: #0f1612;
+  --p-surface: #211d19;
+  --p-line: #4a4036;
+  --p-text: #f4e3c1;
+  --p-muted: #b3a488;
+  --p-accent: #e07a2f;
+  --p-accent-ink: #14110f;
+  --p-display: "Pixelify Sans", sans-serif;
+  --p-display-weight: 600;
+  --p-body: "VT323", monospace;
+  --p-headline-tracking: 0;
+  --p-headline-leading: 1.15;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  background-image: radial-gradient(ellipse at 50% 0%, rgb(224 122 47 / 0.1), transparent 55%);
+}
+
 /* No Corre: night street, receipt paper and the gold of the shop sign */
 [data-theme="corre"] {
   --p-bg: #1b1830;
