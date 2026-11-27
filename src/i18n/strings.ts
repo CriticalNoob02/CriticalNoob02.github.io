@@ -34,8 +34,6 @@ export const ui = {
     pt: "Onde testo rede, simulação e anti-trapaça sem pedir licença a ninguém.",
     en: "Where I try networking, simulation and anti-cheat without asking anyone.",
   },
-  questsTitle: { pt: "Ferramentas pequenas", en: "Small tools" },
-  privateRepo: { pt: "Código privado", en: "Private code" },
   aboutTitle: { pt: "Ficha do personagem", en: "Character sheet" },
   sampleData: {
     pt: "Imagens com dados de exemplo. Nenhum dado real de cliente aparece aqui.",

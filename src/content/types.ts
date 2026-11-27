@@ -89,13 +89,3 @@ export type Architecture = {
   start: string;
   facts: Stat[];
 };
-
-/** A small tool or side project. */
-export type Quest = {
-  id: string;
-  name: string;
-  summary: T;
-  stack: string[];
-  shot?: Shot;
-  href?: string;
-};

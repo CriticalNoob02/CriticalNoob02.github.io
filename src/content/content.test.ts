@@ -3,10 +3,10 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { ui } from "../i18n/strings";
 import { character } from "./character";
-import { projects, quests } from "./projects";
+import { projects } from "./projects";
 
 const PUBLIC = join(__dirname, "..", "..", "public");
-const content = { projects, quests, character, ui };
+const content = { projects, character, ui };
 
 /** Walks any value and returns the path of every {pt, en} pair that is incomplete. */
 function missingTranslations(value: unknown, path = "$"): string[] {
@@ -43,16 +43,12 @@ describe("content", () => {
         ...(p.slides ?? []).map((s) => s.src),
         ...(p.logo.src ? [p.logo.src] : []),
       ]),
-      ...quests.flatMap((q) => (q.shot ? [q.shot.src] : [])),
     ];
     for (const f of files) expect(existsSync(join(PUBLIC, f)), f).toBe(true);
   });
 
   it("links only to https pages", () => {
-    const hrefs = [
-      ...projects.flatMap((p) => p.links.map((l) => l.href)),
-      ...quests.flatMap((q) => (q.href ? [q.href] : [])),
-    ];
+    const hrefs = projects.flatMap((p) => p.links.map((l) => l.href));
     for (const h of hrefs) expect(h).toMatch(/^https:\/\//);
   });
 

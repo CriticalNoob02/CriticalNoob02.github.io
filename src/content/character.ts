@@ -23,6 +23,51 @@ export const character = {
   linkedin: "https://www.linkedin.com/in/adrieldevelop",
   email: "",
   portrait: "/media/idle/guerreiro.png",
+  home: "Palhoça, SC",
+  /** Career as a quest log, newest first (same dates as LinkedIn). */
+  journey: [
+    {
+      when: { pt: "fev 2026 · hoje", en: "Feb 2026 · now" },
+      role: { pt: "Engenheiro de software", en: "Software engineer" },
+      where: "Radar Saúde",
+      note: {
+        pt: "De volta à Radar, agora de ponta a ponta: biblioteca de UI, portes para Go, recebimento de dados e os produtos do hospital.",
+        en: "Back at Radar, now end to end: the UI library, Go ports, data intake and the hospital products.",
+      },
+    },
+    {
+      when: { pt: "set 2024 · fev 2026", en: "Sep 2024 · Feb 2026" },
+      role: { pt: "Engenheiro de software", en: "Software engineer" },
+      where: "MaxPan Tech",
+      note: { pt: "Remoto.", en: "Remote." },
+    },
+    {
+      when: { pt: "jan 2024 · set 2024", en: "Jan 2024 · Sep 2024" },
+      role: { pt: "Engenheiro de software", en: "Software engineer" },
+      where: "Radar Saúde",
+      note: {
+        pt: "Java com Spring, React, Docker Swarm e Rundeck.",
+        en: "Java with Spring, React, Docker Swarm and Rundeck.",
+      },
+    },
+    {
+      when: { pt: "out 2022 · jan 2024", en: "Oct 2022 · Jan 2024" },
+      role: { pt: "QA", en: "QA" },
+      where: "Radar Saúde",
+      note: {
+        pt: "Primeira missão: testes com Cypress e Storybook.",
+        en: "First quest: tests with Cypress and Storybook.",
+      },
+    },
+  ] satisfies { when: T; role: T; where: string; note: T }[],
+  /** Stack as an inventory, one slot per group. */
+  gear: [
+    { slot: { pt: "Linguagens", en: "Languages" }, items: ["TypeScript", "Go", "Python", "Java"] },
+    { slot: { pt: "Front-end", en: "Front end" }, items: ["React", "Next.js", "React Native"] },
+    { slot: { pt: "Back-end", en: "Back end" }, items: ["Node", "Express", "Prisma", "Spring"] },
+    { slot: { pt: "Dados", en: "Data" }, items: ["PostgreSQL", "Redis", "Airflow"] },
+    { slot: { pt: "Infra", en: "Infra" }, items: ["Docker", "CI/CD", "Grafana"] },
+  ] satisfies { slot: T; items: string[] }[],
   /** Character-sheet attributes: one line each, the number is a self-rating out of 20. */
   attributes: [
     { name: { pt: "Front-end", en: "Front end" }, value: 17, note: "React, Next.js, React Native" },

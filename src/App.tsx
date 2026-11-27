@@ -4,7 +4,6 @@ import { About } from "./components/About";
 import { Hero } from "./components/Hero";
 import { Nav } from "./components/Nav";
 import { ProjectSection } from "./components/ProjectSection";
-import { Quests } from "./components/Quests";
 import { ScrollQuest } from "./components/quest/ScrollQuest";
 import { XpToast } from "./components/XpToast";
 import { projects } from "./content/projects";
@@ -45,7 +44,6 @@ export function App() {
         <Group id="work" title={t(ui.workTitle)} />
         <Group id="marketing" title={t(ui.marketingTitle)} intro={t(ui.marketingIntro)} />
         <Group id="games" title={t(ui.gamesTitle)} intro={t(ui.gamesIntro)} />
-        <Quests />
         <About />
       </main>
       <ScrollQuest />

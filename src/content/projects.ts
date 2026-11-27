@@ -1,5 +1,5 @@
 import { architectures } from "./architecture";
-import type { Project, Quest, Shot } from "./types";
+import type { Project, Shot } from "./types";
 
 const shot = (src: string, pt: string, en: string, pixel = false): Shot => ({
   src: `/media/${src}`,
@@ -996,52 +996,5 @@ export const projects: Project[] = [
       ),
     ],
     links: [],
-  },
-];
-
-export const quests: Quest[] = [
-  {
-    id: "docker-manager",
-    name: "docker-manager",
-    summary: {
-      pt: "Gerencia containers com logs ao vivo e edita compose como grafo.",
-      en: "Manages containers with live logs and edits compose files as a graph.",
-    },
-    stack: ["Express", "Dockerode", "Socket.IO", "React Flow"],
-    shot: shot(
-      "docker-manager/compose.webp",
-      "Grafo de um compose de demonstração: serviços web, api, cache e banco ligados por rede, com volumes.",
-      "Graph of a demo compose stack: web, api, cache and database services linked by network, with volumes.",
-    ),
-    href: "https://github.com/CriticalNoob02/docker-manager-fe",
-  },
-  {
-    id: "devtui",
-    name: "devtui",
-    summary: {
-      pt: "Painel de terminal em Go que sobe repositórios, processos e serviços Docker.",
-      en: "A Go terminal dashboard that runs repos, processes and Docker services.",
-    },
-    stack: ["Go", "Bubble Tea"],
-  },
-  {
-    id: "sync-datasus",
-    name: "sync-datasus",
-    summary: {
-      pt: "Copia dados públicos do DATASUS por FTP para o PostgreSQL com pool de workers.",
-      en: "Copies public DATASUS data over FTP into PostgreSQL with a worker pool.",
-    },
-    stack: ["Go", "C", "PostgreSQL"],
-    href: "https://github.com/CriticalNoob02/sync-datasus",
-  },
-  {
-    id: "crawler-sisab",
-    name: "crawler-sisab",
-    summary: {
-      pt: "Baixa relatórios públicos do SISAB, a base da atenção primária.",
-      en: "Downloads public SISAB reports, Brazil's primary care database.",
-    },
-    stack: ["Python"],
-    href: "https://github.com/WizardCodeForge/crawler-sisab",
   },
 ];
