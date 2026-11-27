@@ -1,5 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { type Body, type Events, jump, makeWorld, newBody, type Platform, step } from "./engine";
+import {
+  type Body,
+  type Events,
+  grab,
+  holdAt,
+  jump,
+  makeWorld,
+  newBody,
+  type Platform,
+  release,
+  step,
+} from "./engine";
 
 const ledge = (key: string, l: number, r: number, y: number, enemy?: string): Platform => ({
   key,
@@ -77,6 +88,34 @@ describe("page soldier", () => {
     const b = newBody(500, 100);
     const { events } = run(b, [ledge("far", 0, 1600, 5600)], 0.1, 5000);
     expect(events[0].respawned).toBe(true);
+  });
+
+  it("stays put while held", () => {
+    const b = newBody(500, 300);
+    grab(b);
+    holdAt(b, 700, 200);
+    run(b, [ledge("card", 300, 900, 600)], 1);
+    expect([b.x, b.y, b.ground]).toEqual([700, 200, null]);
+  });
+
+  it("bounces off the window edge when thrown hard, then lands dizzy", () => {
+    const b = newBody(1300, 500);
+    grab(b);
+    release(b, 2000, -200);
+    const { events } = run(b, [ledge("floor", 0, 1600, 900)], 3);
+    expect(events.some((e) => e.wall && e.wall.speed > 1000)).toBe(true);
+    expect(events.some((e) => e.dizzy)).toBe(true);
+    expect(b.x).toBeLessThan(1600);
+    expect(b.ground).toBe("floor");
+  });
+
+  it("knocks over a chip he is thrown into", () => {
+    const b = newBody(300, 620);
+    grab(b);
+    release(b, 900, 0);
+    const { defeated, events } = run(b, [ledge("chip", 500, 560, 600, "chip-t")], 0.5);
+    expect(events.some((e) => e.struck === "chip-t")).toBe(true);
+    expect(defeated.has("chip-t")).toBe(false); // the page decides; the engine only reports
   });
 
   it("jumps when asked, only from the ground", () => {

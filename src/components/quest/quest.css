@@ -14,8 +14,13 @@
   background-color: transparent;
   background-repeat: no-repeat;
   image-rendering: pixelated;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
   will-change: transform;
+}
+
+.soldier.is-held {
+  cursor: grabbing;
 }
 
 .soldier:focus-visible {

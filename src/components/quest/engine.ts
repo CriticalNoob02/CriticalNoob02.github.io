@@ -28,6 +28,9 @@ export type World = {
   docW: number;
   /** Sprite scale: 1 on small screens, 2 on large ones. */
   scale: number;
+  /** Visible window, for the walls he bounces off when thrown. */
+  scrollX?: number;
+  vw?: number;
 };
 
 export type Body = {
@@ -47,6 +50,13 @@ export type Body = {
   patrolX: number | null;
   /** Running to catch up with the scroll. */
   run: boolean;
+  /** The visitor is holding him. */
+  held: boolean;
+  /** Flying after a throw: no steering, bounces off the screen edges. */
+  thrown: boolean;
+  /** Hit a wall hard: he lands dizzy. */
+  hurt: boolean;
+  dizzyT: number;
 };
 
 export type Events = {
@@ -56,6 +66,11 @@ export type Events = {
   attacked?: boolean;
   jumped?: boolean;
   respawned?: boolean;
+  /** Hit a screen edge while thrown. */
+  wall?: { x: number; y: number; speed: number };
+  /** A chip he flew into while thrown. */
+  struck?: string;
+  dizzy?: boolean;
 };
 
 export const G = 2200;
@@ -66,6 +81,12 @@ export const AIR_ACCEL = 1100;
 export const JUMP_V = 820;
 export const JUMP_H = (JUMP_V * JUMP_V) / (2 * G);
 export const ATTACK = 0.36;
+export const THROW_MAX = 2600;
+export const DIZZY = 1.1;
+/** Speed against a wall that leaves him dizzy. */
+const HARD_HIT = 650;
+/** Height of the sticky nav: the ceiling he bounces off. */
+const CEILING = 64;
 /** Gap between two ledges at the same height that he steps across instead of falling. */
 const STEP_GAP = 14;
 
@@ -87,6 +108,10 @@ export function newBody(x: number, y: number): Body {
     patrolT: 1.5,
     patrolX: null,
     run: false,
+    held: false,
+    thrown: false,
+    hurt: false,
+    dizzyT: 0,
   };
 }
 
@@ -220,13 +245,16 @@ function physics(b: Body, w: World, dt: number, ev: Events) {
       }
     }
   } else {
-    b.vy = Math.min(MAX_FALL, b.vy + G * dt);
-    if (b.airGoal !== null) {
+    b.vy = Math.min(b.thrown ? THROW_MAX : MAX_FALL, b.vy + G * dt);
+    if (b.thrown) {
+      b.vx *= 1 - 0.25 * dt;
+    } else if (b.airGoal !== null) {
       const top = b.run ? RUN : WALK * 1.4;
       const want = clamp((b.airGoal - b.x) * 4, -top, top);
       b.vx += clamp(want - b.vx, -AIR_ACCEL * dt, AIR_ACCEL * dt);
     }
     b.x += b.vx * dt;
+    if (b.thrown) fly(b, w, ev);
     const ny = b.y + b.vy * dt;
     if (b.vy > 0) {
       let land: Platform | undefined;
@@ -241,6 +269,22 @@ function physics(b: Body, w: World, dt: number, ev: Events) {
           b.y = land.y;
           b.vy = -520;
           return;
+        }
+        // A hard throw bounces once or twice before he settles.
+        if (b.thrown && b.vy > 700) {
+          ev.landed = { key: land.key, speed: b.vy };
+          b.y = land.y;
+          b.vy = -b.vy * 0.32;
+          b.vx *= 0.6;
+          return;
+        }
+        if (b.thrown) {
+          b.thrown = false;
+          if (b.hurt) {
+            b.hurt = false;
+            b.dizzyT = DIZZY;
+            ev.dizzy = true;
+          }
         }
         ev.landed = { key: land.key, speed: b.vy };
         b.ground = land.key;
@@ -259,10 +303,76 @@ function physics(b: Body, w: World, dt: number, ev: Events) {
   b.x = clamp(b.x, 10, w.docW - 10);
 }
 
+/** Thrown flight: bounce off the window edges and the nav, knock over chips on the way. */
+function fly(b: Body, w: World, ev: Events) {
+  const bodyH = 56 * w.scale;
+  const half = 14 * w.scale;
+  const left = (w.scrollX ?? 0) + half;
+  const right = (w.scrollX ?? 0) + (w.vw ?? w.docW) - half;
+  const ceiling = w.scrollY + CEILING + bodyH;
+  const hit = (speed: number) => {
+    if (speed > 200) ev.wall = { x: b.x, y: b.y - bodyH / 2, speed };
+    if (speed > HARD_HIT) b.hurt = true;
+  };
+  if (b.x < left && b.vx < 0) {
+    hit(-b.vx);
+    b.x = left;
+    b.vx = -b.vx * 0.55;
+  } else if (b.x > right && b.vx > 0) {
+    hit(b.vx);
+    b.x = right;
+    b.vx = -b.vx * 0.55;
+  }
+  if (b.y < ceiling && b.vy < 0) {
+    hit(-b.vy);
+    b.y = ceiling;
+    b.vy = -b.vy * 0.4;
+  }
+  for (const p of w.platforms) {
+    if (!alive(w, p)) continue;
+    if (b.x < p.l - half || b.x > p.r + half) continue;
+    if (p.b < b.y - bodyH || p.y > b.y) continue;
+    ev.struck = p.enemy;
+    break;
+  }
+}
+
+/** The visitor picks him up. */
+export function grab(b: Body) {
+  b.held = true;
+  b.thrown = false;
+  b.hurt = false;
+  b.dizzyT = 0;
+  b.ground = null;
+  b.dropKey = null;
+  b.airGoal = null;
+  b.attackT = 0;
+  b.attackTarget = null;
+  b.vx = 0;
+  b.vy = 0;
+}
+
+/** Where his feet are while held. */
+export function holdAt(b: Body, x: number, y: number) {
+  b.x = x;
+  b.y = y;
+}
+
+/** Let go with the gesture's speed (px/s); a still release just drops him. */
+export function release(b: Body, vx: number, vy: number) {
+  b.held = false;
+  b.thrown = true;
+  b.vx = clamp(vx, -THROW_MAX, THROW_MAX);
+  b.vy = clamp(vy, -THROW_MAX, THROW_MAX);
+  if (Math.abs(b.vx) > 30) b.facing = b.vx > 0 ? 1 : -1;
+  b.patrolT = 2;
+}
+
 /** Advance the soldier by dt seconds. Mutates `b`; returns what happened. */
 export function step(b: Body, w: World, dt: number, rnd: () => number = Math.random): Events {
   const ev: Events = {};
   const top = w.scrollY;
+  if (b.held) return ev;
 
   // Off screen (a long fling or a jump to an anchor): he drops back in from the top.
   if (b.y < top - 60 || b.y > top + w.vh + 140) {
@@ -275,6 +385,8 @@ export function step(b: Body, w: World, dt: number, rnd: () => number = Math.ran
     b.airGoal = null;
     b.attackT = 0;
     b.attackTarget = null;
+    b.thrown = false;
+    b.hurt = false;
     ev.respawned = true;
   }
 
@@ -285,6 +397,15 @@ export function step(b: Body, w: World, dt: number, rnd: () => number = Math.ran
   }
   if (g) b.y = g.y; // follow layout shifts (late images)
   b.patrolT -= dt;
+
+  if (b.thrown || b.dizzyT > 0) {
+    if (g) {
+      b.dizzyT = Math.max(0, b.dizzyT - dt);
+      b.vx = 0;
+    }
+    physics(b, w, dt, ev);
+    return ev;
+  }
 
   if (b.attackT > 0) {
     b.attackT -= dt;
@@ -331,7 +452,7 @@ export function step(b: Body, w: World, dt: number, rnd: () => number = Math.ran
 
 /** A jump on request (the visitor clicked him). */
 export function jump(b: Body): boolean {
-  if (!b.ground || b.attackT > 0) return false;
+  if (!b.ground || b.attackT > 0 || b.dizzyT > 0) return false;
   b.ground = null;
   b.vy = -JUMP_V;
   b.airGoal = b.x;

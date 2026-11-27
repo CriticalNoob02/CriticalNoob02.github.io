@@ -13,3 +13,7 @@ export const WALK: Sheet = { src: "/media/quest/walk.png", frames: 8, fps: 10, m
 export const JUMP: Sheet = { src: "/media/quest/jump.png", frames: 9, fps: 10, ms: 900 };
 /** Plays once per strike; its length matches the engine's ATTACK time. */
 export const ATTACK: Sheet = { src: "/media/quest/attack.png", frames: 7, fps: 20, ms: 360 };
+/** Held or flung: legs kicking. */
+export const HELD: Sheet = { src: "/media/quest/held.png", frames: 6, fps: 12, ms: 500 };
+/** After a hard hit on a wall; matches the engine's DIZZY time. */
+export const DIZZY: Sheet = { src: "/media/quest/dizzy.png", frames: 8, fps: 8, ms: 1100 };

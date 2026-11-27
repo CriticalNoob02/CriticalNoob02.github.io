@@ -2,8 +2,18 @@ import { Eye, EyeSlash, Sword } from "@phosphor-icons/react";
 import { useEffect, useRef, useState } from "react";
 import type { T } from "../../content/types";
 import { useStore, useT } from "../../store";
-import { type Body, jump, makeWorld, newBody, type Platform, step } from "./engine";
-import { ATTACK, CELL, FEET, IDLE, JUMP, type Sheet, WALK } from "./sprites";
+import {
+  type Body,
+  grab,
+  holdAt,
+  jump,
+  makeWorld,
+  newBody,
+  type Platform,
+  release,
+  step,
+} from "./engine";
+import { ATTACK, CELL, DIZZY, FEET, HELD, IDLE, JUMP, type Sheet, WALK } from "./sprites";
 import "./quest.css";
 
 const ui = {
@@ -14,8 +24,8 @@ const ui = {
   hideShort: { pt: "Desligar", en: "Off" },
   showShort: { pt: "Ligar", en: "On" },
   soldier: {
-    pt: "Soldadinho: desce com a página pulando nos cards e derrota as tags. Clique para ele pular.",
-    en: "Little soldier: rides the page down jumping on the cards and beats the tags. Click to make him jump.",
+    pt: "Soldadinho: desce com a página pulando nos cards e derrota as tags. Clique para ele pular, ou segure e arremesse.",
+    en: "Little soldier: rides the page down jumping on the cards and beats the tags. Click to make him jump, or grab and throw him.",
   },
 } satisfies Record<string, T>;
 
@@ -156,7 +166,82 @@ export function ScrollQuest() {
     let clock = 0;
     let walked = 0;
     let attackClock = 0;
+    let dizzyClock = 0;
     let running = true;
+
+    // Drag and throw: a press that moves more than a few pixels picks him up.
+    type Drag = {
+      id: number;
+      x: number;
+      y: number;
+      grip: number;
+      lifted: boolean;
+      samples: { t: number; x: number; y: number }[];
+    };
+    let drag: Drag | null = null;
+    let swallowClick = false;
+    const docPoint = (e: PointerEvent) => ({
+      x: e.clientX + window.scrollX,
+      y: e.clientY + window.scrollY,
+    });
+    const onDown = (e: PointerEvent) => {
+      const b = body.current;
+      if (!b || e.button !== 0) return;
+      const pt = docPoint(e);
+      drag = {
+        id: e.pointerId,
+        x: e.clientX,
+        y: e.clientY,
+        // Keep the distance from the hand to his feet, so he hangs from where he was grabbed.
+        grip: Math.max(18, b.y - pt.y),
+        lifted: false,
+        samples: [{ t: performance.now(), x: pt.x, y: pt.y }],
+      };
+      el.setPointerCapture(e.pointerId);
+    };
+    const onMove = (e: PointerEvent) => {
+      const b = body.current;
+      if (!drag || !b || e.pointerId !== drag.id) return;
+      if (!drag.lifted) {
+        if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 6) return;
+        drag.lifted = true;
+        grab(b);
+        el.classList.add("is-held");
+      }
+      const pt = docPoint(e);
+      const prev = drag.samples[drag.samples.length - 1];
+      if (Math.abs(pt.x - prev.x) > 2) b.facing = pt.x > prev.x ? 1 : -1;
+      drag.x = e.clientX;
+      drag.y = e.clientY;
+      const now = performance.now();
+      drag.samples.push({ t: now, x: pt.x, y: pt.y });
+      while (drag.samples.length > 2 && now - drag.samples[0].t > 90) drag.samples.shift();
+    };
+    const onUp = (e: PointerEvent) => {
+      const b = body.current;
+      if (!drag || !b || e.pointerId !== drag.id) return;
+      if (drag.lifted) {
+        const s0 = drag.samples[0];
+        const s1 = drag.samples[drag.samples.length - 1];
+        const dtS = Math.max(0.016, (s1.t - s0.t) / 1000);
+        const fresh = performance.now() - s1.t < 120;
+        release(b, fresh ? (s1.x - s0.x) / dtS : 0, fresh ? (s1.y - s0.y) / dtS : 0);
+        el.classList.remove("is-held");
+        swallowClick = true;
+      }
+      drag = null;
+    };
+    const onClickCapture = (e: MouseEvent) => {
+      if (!swallowClick) return;
+      swallowClick = false;
+      e.stopPropagation();
+      e.preventDefault();
+    };
+    el.addEventListener("pointerdown", onDown);
+    el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerup", onUp);
+    el.addEventListener("pointercancel", onUp);
+    el.addEventListener("click", onClickCapture, true);
 
     // Chips beaten earlier in this visit stay beaten if the soldier is shown again.
     const remeasure = () => {
@@ -192,11 +277,16 @@ export function ScrollQuest() {
         vh: window.innerHeight,
         docW: document.documentElement.scrollWidth,
         scale,
+        scrollX: window.scrollX,
+        vw: document.documentElement.clientWidth,
       });
       if (!body.current) {
         body.current = newBody(window.innerWidth * 0.62 + window.scrollX, window.scrollY - 10);
       }
       const b = body.current;
+      if (drag?.lifted) {
+        holdAt(b, drag.x + window.scrollX, drag.y + window.scrollY + drag.grip);
+      }
       const wasAttacking = b.attackT > 0;
       const x0 = b.x;
       const ev = step(b, world, dt);
@@ -209,11 +299,25 @@ export function ScrollQuest() {
       }
       if (ev.landed && ev.landed.speed > 520) react(platformEls.get(ev.landed.key), "bump");
       if (ev.attacked && !wasAttacking) attackClock = 0;
+      if (ev.struck) win(ev.struck, b.x, b.y - 40 * scale, "STRIKE!");
+      if (ev.wall && ev.wall.speed > 650) pop(layer.current, ev.wall.x, ev.wall.y, "TUM!");
+      if (ev.dizzy) dizzyClock = 0;
 
       // Pick the frame.
       let sheet = IDLE;
       let frame = frameOf(IDLE, clock);
-      if (b.attackT > 0) {
+      if (b.held || (b.thrown && Math.hypot(b.vx, b.vy) > 600)) {
+        // Held or flying fast: legs kicking.
+        sheet = HELD;
+        frame = frameOf(HELD, clock);
+      } else if (b.dizzyT > 0) {
+        dizzyClock += dt;
+        sheet = DIZZY;
+        frame = Math.min(
+          DIZZY.frames - 1,
+          Math.floor((dizzyClock / DIZZY.ms) * 1000 * DIZZY.frames),
+        );
+      } else if (b.attackT > 0) {
         attackClock += dt;
         sheet = ATTACK;
         frame = Math.min(
@@ -244,6 +348,11 @@ export function ScrollQuest() {
     return () => {
       running = false;
       cancelAnimationFrame(raf);
+      el.removeEventListener("pointerdown", onDown);
+      el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerup", onUp);
+      el.removeEventListener("pointercancel", onUp);
+      el.removeEventListener("click", onClickCapture, true);
       body.current = null;
       for (const el of document.querySelectorAll<HTMLElement>("[data-soldier]")) {
         delete el.dataset.soldier;
