@@ -1,14 +1,15 @@
 /**
- * Sprite sheets of the scroll quest, all drawn and animated in PixelLab
- * (soldier: character 48d96496…, chest: object c2a76363…). Cells are 64 px.
- * Walk and idle have one row per facing, in the order of DIRS in path.ts.
+ * Sprite sheets of the page soldier, drawn and animated in PixelLab (side view,
+ * character b510e18d…). Frames sit on 96 px cells with the feet on the FEET line,
+ * one row each, facing east; west is the same sheet mirrored in CSS.
  */
-export const CELL = 64;
+export const CELL = 96;
+export const FEET = 90;
 
-export type Sheet = { src: string; frames: number; rows: number; fps: number; ms: number };
+export type Sheet = { src: string; frames: number; fps: number; ms: number };
 
-export const WALK: Sheet = { src: "/media/quest/walk.png", frames: 8, rows: 8, fps: 10, ms: 800 };
-export const IDLE: Sheet = { src: "/media/quest/idle.png", frames: 4, rows: 8, fps: 5, ms: 800 };
-export const JUMP: Sheet = { src: "/media/quest/jump.png", frames: 7, rows: 1, fps: 10, ms: 700 };
-/** The chest opening plays once in CSS (`steps(8)` in styles.css matches these 9 frames). */
-export const CHEST: Sheet = { src: "/media/quest/chest.png", frames: 9, rows: 1, fps: 12, ms: 750 };
+export const IDLE: Sheet = { src: "/media/quest/idle.png", frames: 4, fps: 5, ms: 800 };
+export const WALK: Sheet = { src: "/media/quest/walk.png", frames: 8, fps: 10, ms: 800 };
+export const JUMP: Sheet = { src: "/media/quest/jump.png", frames: 9, fps: 10, ms: 900 };
+/** Plays once per strike; its length matches the engine's ATTACK time. */
+export const ATTACK: Sheet = { src: "/media/quest/attack.png", frames: 7, fps: 20, ms: 360 };

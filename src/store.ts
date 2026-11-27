@@ -5,12 +5,17 @@ import type { Lang, T, ThemeId } from "./content/types";
 const LANG_KEY = "portfolio.lang";
 const QUEST_KEY = "portfolio.quest";
 
+/** Hidden when the visitor said so, or by default when they ask for reduced motion. */
 function initialQuestOff(): boolean {
   try {
-    return localStorage.getItem(QUEST_KEY) === "off";
+    const saved = localStorage.getItem(QUEST_KEY);
+    if (saved) return saved === "off";
   } catch {
-    return false;
+    // storage blocked: decide from the motion preference
   }
+  return (
+    typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
 function initialLang(): Lang {
@@ -32,9 +37,9 @@ type State = {
   /** Projects the visitor has scrolled through, in order: the character sheet's XP. */
   seen: ThemeId[];
   see: (id: ThemeId) => void;
-  /** Chests the soldier has opened on the scroll trail. */
-  loot: string[];
-  collect: (ids: string[]) => void;
+  /** Stack chips the page soldier has beaten. */
+  defeated: string[];
+  defeat: (id: string) => void;
   /** The visitor hid the soldier; remembered on this browser. */
   questOff: boolean;
   toggleQuest: () => void;
@@ -52,12 +57,8 @@ export const useStore = create<State>((set) => ({
   },
   seen: [],
   see: (id) => set((s) => (s.seen.includes(id) ? s : { seen: [...s.seen, id] })),
-  loot: [],
-  collect: (ids) =>
-    set((s) => {
-      const fresh = ids.filter((id) => !s.loot.includes(id));
-      return fresh.length ? { loot: [...s.loot, ...fresh] } : s;
-    }),
+  defeated: [],
+  defeat: (id) => set((s) => (s.defeated.includes(id) ? s : { defeated: [...s.defeated, id] })),
   questOff: initialQuestOff(),
   toggleQuest: () =>
     set((s) => {
