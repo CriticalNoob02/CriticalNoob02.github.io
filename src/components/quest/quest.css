@@ -1,0 +1,163 @@
+/* ------------------------------------------------------------------
+   Scroll quest: the PixelLab soldier walks down with the page and
+   opens a chest per project. Frames come from sprite sheets.
+------------------------------------------------------------------- */
+.quest-chests {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.quest-chest {
+  position: absolute;
+  background-image: var(--sheet);
+  background-size: calc(var(--frames) * 100%) 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+/* 9 frames: 8 steps from the first to the last, then hold it open. */
+.quest-chest.is-open {
+  animation: quest-chest-open 0.75s steps(8, jump-none) forwards;
+}
+
+@keyframes quest-chest-open {
+  to {
+    background-position: 100% 0;
+  }
+}
+
+.quest-chest-plus {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  font-family: var(--pixel);
+  font-size: 1rem;
+  color: #ffd75e;
+  text-shadow: 0 2px 0 #3a2208;
+  transform: translateX(-50%);
+  animation: quest-plus 1.1s var(--ease) forwards;
+}
+
+@keyframes quest-plus {
+  from {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -36px);
+  }
+}
+
+.quest-soldier {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.quest-soldier:focus-visible {
+  outline-offset: -4px;
+}
+
+.quest-hud {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quest-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  height: 40px;
+  padding: 0 14px 0 6px;
+  border-radius: 999px;
+  background: rgb(27 19 10 / 0.88);
+  border: 1px solid #5a4018;
+  color: #f4e3c1;
+  font-family: var(--pixel);
+  font-size: 0.95rem;
+  backdrop-filter: blur(8px);
+}
+
+.quest-hud.is-done .quest-count {
+  color: #ffd75e;
+  border-color: #c89a3a;
+}
+
+.quest-hud-chest {
+  width: 32px;
+  height: 32px;
+  background-size: 900% 100%;
+  background-position: 0 0;
+  image-rendering: pixelated;
+}
+
+.quest-hud.is-done .quest-hud-chest {
+  background-position: 100% 0;
+}
+
+.quest-toggle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid #5a4018;
+  background: rgb(27 19 10 / 0.88);
+  color: #f4e3c1;
+  cursor: pointer;
+}
+
+.quest-toggle:hover {
+  border-color: #c89a3a;
+}
+
+@media (max-width: 640px) {
+  .quest-hud {
+    left: 12px;
+    bottom: 12px;
+  }
+
+  .quest-count {
+    height: 34px;
+    font-size: 0.85rem;
+  }
+
+  .quest-toggle {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quest-chest.is-open {
+    animation: none;
+    background-position: 100% 0;
+  }
+
+  .quest-chest-plus {
+    display: none;
+  }
+}

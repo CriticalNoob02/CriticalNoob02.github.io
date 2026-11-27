@@ -5,6 +5,7 @@ import { Hero } from "./components/Hero";
 import { Nav } from "./components/Nav";
 import { ProjectSection } from "./components/ProjectSection";
 import { Quests } from "./components/Quests";
+import { ScrollQuest } from "./components/quest/ScrollQuest";
 import { XpToast } from "./components/XpToast";
 import { projects } from "./content/projects";
 import type { Group as GroupId } from "./content/types";
@@ -47,6 +48,7 @@ export function App() {
         <Quests />
         <About />
       </main>
+      <ScrollQuest />
       <XpToast />
     </MotionConfig>
   );
