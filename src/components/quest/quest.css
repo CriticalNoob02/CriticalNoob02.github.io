@@ -138,15 +138,23 @@
 }
 
 .soldier-toggle {
-  display: grid;
-  place-items: center;
-  width: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   height: 40px;
+  padding: 0 14px 0 12px;
   border-radius: 999px;
   border: 1px solid #5a4018;
   background: rgb(27 19 10 / 0.88);
   color: #f4e3c1;
+  font-family: var(--pixel);
+  font-size: 0.95rem;
   cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.soldier-toggle-short {
+  display: none;
 }
 
 .soldier-toggle:hover {
@@ -165,7 +173,16 @@
   }
 
   .soldier-toggle {
-    width: 34px;
     height: 34px;
+    padding: 0 12px 0 10px;
+    font-size: 0.85rem;
+  }
+
+  .soldier-toggle-long {
+    display: none;
+  }
+
+  .soldier-toggle-short {
+    display: inline;
   }
 }

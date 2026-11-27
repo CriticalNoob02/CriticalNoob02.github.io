@@ -9,8 +9,10 @@ import "./quest.css";
 const ui = {
   beaten: { pt: "Tags derrotadas", en: "Tags beaten" },
   allBeaten: { pt: "Todas as tags derrotadas!", en: "Every tag beaten!" },
-  hide: { pt: "Esconder o soldadinho", en: "Hide the soldier" },
-  show: { pt: "Mostrar o soldadinho", en: "Show the soldier" },
+  hide: { pt: "Desligar soldadinho", en: "Turn the soldier off" },
+  show: { pt: "Ligar soldadinho", en: "Turn the soldier on" },
+  hideShort: { pt: "Desligar", en: "Off" },
+  showShort: { pt: "Ligar", en: "On" },
   soldier: {
     pt: "Soldadinho: desce com a página pulando nos cards e derrota as tags. Clique para ele pular.",
     en: "Little soldier: rides the page down jumping on the cards and beats the tags. Click to make him jump.",
@@ -154,6 +156,7 @@ export function ScrollQuest() {
     let clock = 0;
     let walked = 0;
     let attackClock = 0;
+    let running = true;
 
     // Chips beaten earlier in this visit stay beaten if the soldier is shown again.
     const remeasure = () => {
@@ -169,7 +172,7 @@ export function ScrollQuest() {
       const chip = enemyEls.get(id);
       react(chip, "hit");
       setTimeout(() => {
-        if (chip) chip.dataset.soldier = "down";
+        if (chip && running) chip.dataset.soldier = "down";
       }, 320);
       pop(layer.current, x, y, word);
     };
@@ -239,9 +242,12 @@ export function ScrollQuest() {
     };
     raf = requestAnimationFrame(tick);
     return () => {
+      running = false;
       cancelAnimationFrame(raf);
       body.current = null;
-      for (const chip of enemyEls.values()) delete chip.dataset.soldier;
+      for (const el of document.querySelectorAll<HTMLElement>("[data-soldier]")) {
+        delete el.dataset.soldier;
+      }
     };
   }, [off, defeat]);
 
@@ -275,10 +281,17 @@ export function ScrollQuest() {
           type="button"
           className="soldier-toggle"
           onClick={toggle}
-          aria-label={off ? t(ui.show) : t(ui.hide)}
           title={off ? t(ui.show) : t(ui.hide)}
         >
-          {off ? <Eye size={18} weight="bold" /> : <EyeSlash size={18} weight="bold" />}
+          {off ? (
+            <Eye size={18} weight="bold" aria-hidden="true" />
+          ) : (
+            <EyeSlash size={18} weight="bold" aria-hidden="true" />
+          )}
+          <span className="soldier-toggle-long">{off ? t(ui.show) : t(ui.hide)}</span>
+          <span className="soldier-toggle-short" aria-hidden="true">
+            {off ? t(ui.showShort) : t(ui.hideShort)}
+          </span>
         </button>
       </div>
     </>
